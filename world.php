@@ -6,13 +6,22 @@ $password = 'password123';
 $dbname = 'world';
 
 $conn = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
-$stmt = $conn->query("SELECT * FROM countries");
+
+$country = $_GET['country'] ?? '';
+
+$sql = "SELECT * FROM countries WHERE name LIKE :country";
+$stmt = $conn->prepare($sql);
+
+$stmt->execute([
+    'country' => '%' . $country . '%'
+]);
 
 $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
+
 <ul>
 <?php foreach ($results as $row): ?>
-  <li><?= $row['name'] . ' is ruled by ' . $row['head_of_state']; ?></li>
+    <li><?= htmlspecialchars($row['name']) . ' is ruled by ' . htmlspecialchars($row['head_of_state'] ?? 'Unknown'); ?></li>
 <?php endforeach; ?>
 </ul>
