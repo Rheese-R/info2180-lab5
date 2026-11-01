@@ -1,2 +1,2 @@
-# info2180-lab5
-Lab 5 - Rheese-Ashley Roman
+# INFO2180-Lab5
+This is Lab 5 for Rheese-Ashley Roman on PHP and MySQL.
